@@ -1,5 +1,6 @@
 # otus-cpp-basics
 //Данный репозиторий создан в рамках обучения в OTUS  на курсе C++ Developer. Basic .
+
 4.hw:
 
 21.05.23 внес изменение в 4.hw/src/main.cpp. 
