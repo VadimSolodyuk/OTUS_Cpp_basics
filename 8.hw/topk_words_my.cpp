@@ -28,24 +28,7 @@ void merge_counter(Counter &main_counter, const std::pair<std::string, std::size
 
 void print_topk(std::ostream &stream, const Counter &counter);
 
-void reading_words (int argc, char **name_file, std::vector<std::vector<std::string> > &allWords){
-    for (int i{1}; i < argc; ++i){
-        std::ifstream input{name_file[i]};
-        if (!input.is_open()){
-            std::cerr << "Failed to open file " << name_file[i] << '\n';
-            return;
-        }
-        size_t index{0};
-        std::for_each(std::istream_iterator<std::string>(input),
-                        std::istream_iterator<std::string>(),
-                        [&allWords, &index](const std::string &s){ 
-                            allWords[index].emplace_back(s);
-                            if (index == allWords.size() - 1) index = 0;
-                            else ++index;
-                        }
-        );
-    }
-}
+void reading_words (int argc, char **name_file, std::vector<std::vector<std::string> > &allWords);
 
 int main(int argc, char *argv[]){
 
@@ -82,6 +65,25 @@ int main(int argc, char *argv[]){
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
     std::cout << "Elapsed time is " << elapsed_ms.count() << " us\n";
+}
+
+void reading_words (int argc, char **name_file, std::vector<std::vector<std::string> > &allWords){
+    for (int i{1}; i < argc; ++i){
+        std::ifstream input{name_file[i]};
+        if (!input.is_open()){
+            std::cerr << "Failed to open file " << name_file[i] << '\n';
+            return;
+        }
+        size_t index{0};
+        std::for_each(std::istream_iterator<std::string>(input),
+                        std::istream_iterator<std::string>(),
+                        [&allWords, &index](const std::string &s){ 
+                            allWords[index].emplace_back(s);
+                            if (index == allWords.size() - 1) index = 0;
+                            else ++index;
+                        }
+        );
+    }
 }
 
 std::string tolower(const std::string &str)
